@@ -1,11 +1,11 @@
 import React from "react";
-import Link from 'next/link'
+import Link from "next/link";
 
 export function sum (a, b) {
   return a + b;
 }
 
-export default function Page() {
+function Page() {
   return (
     <div>
       <h1>Home</h1>
@@ -13,3 +13,6 @@ export default function Page() {
     </div>
   )
 }
+
+export default Page;
+
