@@ -4,20 +4,26 @@ on:
   push:
 
 jobs:
-  test:
-    strategy:
-      matrix:
-        #   runner:
-        #     - blacksmith-2vcpu-ubuntu-2204
-        #     - blacksmith-4vcpu-ubuntu-2204
-        #     - blacksmith-8vcpu-ubuntu-2204
-        #     - blacksmith-16vcpu-ubuntu-2204
-        maxWorkers: [1, 2, 3, 4]
-    name: Tests (${{ matrix.maxWorkers }} Core(s))
+  install:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
         run: npm install
+      - uses: actions/upload-artifact@v4
+        with:
+          name: node_modules
+          path: ./node_modules
+  test:
+    needs: install
+    strategy:
+      matrix:
+        maxWorkers: [1, 2, 3, 4]
+    name: Tests (${{ matrix.maxWorkers }} Core(s))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: node_modules
       - name: Run tests
         run: npm test -- --silent --maxWorkers=${{ matrix.maxWorkers }}
