@@ -5,6 +5,10 @@
 
 /** @type {import('jest').Config} */
 const config = {
+  // custom
+  testEnvironment: 'jsdom',
+  setupFilesAfterEnv: ['./jest.setup.js'],
+
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
