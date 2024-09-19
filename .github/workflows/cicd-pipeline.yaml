@@ -20,4 +20,4 @@ jobs:
       - name: Install dependencies
         run: npm install
       - name: Run tests
-        run: npm jest --silent --maxWorkers=${{ matrix.maxWorkers }}
+        run: npm test -- --silent --maxWorkers=${{ matrix.maxWorkers }}
