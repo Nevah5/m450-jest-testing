@@ -8,12 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "latest"
       - name: Install dependencies
         run: npm install
-      - uses: actions/upload-artifact@v4
-        with:
-          name: node_modules
-          path: ./node_modules
   test:
     needs: install
     strategy:
@@ -22,10 +21,11 @@ jobs:
     name: Tests (${{ matrix.maxWorkers }} Core(s))
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
+      - uses: actions/setup-node@v4
         with:
-          name: node_modules
-          path: ./node_modules
+          node-version: "latest"
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: npm install
       - name: Run tests
         run: npm test -- --silent --maxWorkers=${{ matrix.maxWorkers }}
