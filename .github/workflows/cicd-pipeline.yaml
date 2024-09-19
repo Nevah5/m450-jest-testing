@@ -28,4 +28,4 @@ jobs:
           name: node_modules
           path: ./node_modules
       - name: Run tests
-        run: npm test -- --silent --maxWorkers=${{ matrix.maxWorkers }}
+        run: jest --silent --maxWorkers=${{ matrix.maxWorkers }}
